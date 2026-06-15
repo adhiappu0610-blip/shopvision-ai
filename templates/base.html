@@ -4,16 +4,12 @@
     <meta charset="UTF-8">
     <title>ShopVision AI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
 <nav class="navbar">
-    <div class="nav-logo">
-        <span class="logo-icon">🛒</span>
-        <span>ShopVision AI</span>
-    </div>
+    <a href="/" class="logo">🛒 ShopVision AI</a>
 
     <div class="nav-links">
         <a href="/">Home</a>
@@ -23,13 +19,16 @@
         <a href="/analytics">Analytics</a>
         <a href="/reports">Reports</a>
         <a href="/ai">AI Assistant</a>
-        <a href="/logout" class="logout-btn">Logout</a>
+
+        {% if session.get("user") %}
+            <a href="/logout" class="nav-btn danger">Logout</a>
+        {% else %}
+            <a href="/login" class="nav-btn">Login</a>
+        {% endif %}
     </div>
 </nav>
 
-<main>
-    {% block content %}{% endblock %}
-</main>
+{% block content %}{% endblock %}
 
 </body>
 </html>
