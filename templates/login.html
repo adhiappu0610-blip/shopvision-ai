@@ -3,9 +3,13 @@
 {% block content %}
 
 <section class="auth-page">
-    <div class="auth-card">
-        <h2>Welcome Back</h2>
-        <p>Login to manage your ShopVision AI dashboard</p>
+    <div class="auth-box">
+        <h1>Welcome Back 👋</h1>
+        <p>Login to access your ShopVision AI dashboard</p>
+
+        {% if error %}
+            <div class="error-box">{{ error }}</div>
+        {% endif %}
 
         <form method="POST">
             <input type="text" name="username" placeholder="Enter username" required>
@@ -14,9 +18,10 @@
             <button type="submit">Login</button>
         </form>
 
-        <p class="auth-link">
-            New user? <a href="/register">Create account</a>
-        </p>
+        <div class="bottom-text">
+            Don't have an account?
+            <a href="/register">Create account</a>
+        </div>
     </div>
 </section>
 
