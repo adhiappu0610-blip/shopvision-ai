@@ -1,0 +1,41 @@
+month,product,category,price,cost,stock,sold,branch
+January,Rice 5kg,Grocery,350,280,45,120,Main
+January,Sugar 1kg,Grocery,50,34,80,200,Main
+January,Milk 1L,Dairy,60,45,30,180,Main
+January,Bread,Bakery,40,22,12,70,Main
+January,Eggs 12pcs,Dairy,90,68,20,150,Main
+February,Rice 5kg,Grocery,350,280,40,135,Main
+February,Sugar 1kg,Grocery,50,34,78,210,Main
+February,Milk 1L,Dairy,60,45,28,195,Main
+February,Bread,Bakery,40,22,10,85,Main
+February,Eggs 12pcs,Dairy,90,68,18,165,Main
+March,Rice 5kg,Grocery,350,280,38,150,Main
+March,Sugar 1kg,Grocery,50,34,75,220,Main
+March,Milk 1L,Dairy,60,45,25,205,Main
+March,Bread,Bakery,40,22,8,90,Main
+March,Eggs 12pcs,Dairy,90,68,15,170,Main
+April,Rice 5kg,Grocery,350,280,35,160,Main
+April,Sugar 1kg,Grocery,50,34,70,240,Main
+April,Milk 1L,Dairy,60,45,22,215,Main
+April,Bread,Bakery,40,22,7,95,Main
+April,Eggs 12pcs,Dairy,90,68,13,185,Main
+May,Rice 5kg,Grocery,350,280,30,180,Main
+May,Sugar 1kg,Grocery,50,34,68,250,Main
+May,Milk 1L,Dairy,60,45,20,225,Main
+May,Bread,Bakery,40,22,5,110,Main
+May,Eggs 12pcs,Dairy,90,68,10,200,Main
+June,Rice 5kg,Grocery,350,280,28,195,Main
+June,Sugar 1kg,Grocery,50,34,65,260,Main
+June,Milk 1L,Dairy,60,45,18,235,Main
+June,Bread,Bakery,40,22,4,120,Main
+June,Eggs 12pcs,Dairy,90,68,8,215,Main
+June,Soap,Personal Care,35,18,50,160,Main
+June,Shampoo,Personal Care,120,75,25,90,Main
+June,Chips,Snacks,25,12,15,145,Main
+June,Biscuits,Snacks,30,16,40,175,Main
+June,Chocolate,Snacks,45,28,32,190,Main
+June,Coffee,Beverage,95,60,10,65,Main
+June,Tea Powder,Beverage,110,75,12,85,Main
+June,Cool Drink,Beverage,40,22,22,180,Main
+June,Water Bottle,Beverage,20,10,90,280,Main
+June,Detergent,Home Care,150,100,14,70,Main
