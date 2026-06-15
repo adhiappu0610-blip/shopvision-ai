@@ -2,87 +2,67 @@
 
 {% block content %}
 
-<section class="hero">
-    <div class="hero-content">
-        <p class="tagline">AI Powered Supermarket Analytics</p>
+<section class="landing">
+    <div class="landing-text">
+        <span class="badge">AI Powered Business Dashboard</span>
 
-        <h1>Manage Your Shop Smarter With ShopVision AI</h1>
+        <h1>Smart Supermarket Management System</h1>
 
-        <p class="hero-text">
-            Track sales, inventory, billing, profit, low stock, dead stock,
-            and AI business recommendations in one professional dashboard.
+        <p>
+            Manage sales, billing, inventory, reports, profit analysis,
+            low stock alerts and AI business insights in one powerful platform.
         </p>
 
-        <div class="hero-buttons">
-            <a href="/login" class="primary-btn">Get Started</a>
-            <a href="/dashboard" class="secondary-btn">View Dashboard</a>
+        <div class="landing-buttons">
+            <a href="/register" class="primary-btn">Get Started</a>
+            <a href="/login" class="secondary-btn">Login</a>
         </div>
     </div>
 
-    <div class="hero-card">
-        <h3>Business Overview</h3>
+    <div class="dashboard-preview">
+        <h3>Live Business Preview</h3>
 
-        <div class="stat-row">
+        <div class="preview-card">
             <span>Total Sales</span>
             <b>₹1,25,000</b>
         </div>
 
-        <div class="stat-row">
+        <div class="preview-card">
             <span>Net Profit</span>
             <b>₹32,500</b>
         </div>
 
-        <div class="stat-row">
-            <span>Low Stock Alerts</span>
+        <div class="preview-card">
+            <span>Low Stock</span>
             <b>8 Products</b>
         </div>
-
-        <div class="mini-chart">
-            <div style="height:80%"></div>
-            <div style="height:55%"></div>
-            <div style="height:70%"></div>
-            <div style="height:40%"></div>
-            <div style="height:90%"></div>
-        </div>
     </div>
 </section>
 
-<section class="features">
-    <h2>Powerful Features</h2>
+<section class="features-section">
+    <h2>Advanced Features</h2>
 
-    <div class="feature-grid">
-        <div class="feature-card">
+    <div class="features-grid">
+        <div class="feature-box">
             <h3>📊 Smart Dashboard</h3>
-            <p>View sales, profit, expenses, bills and product performance.</p>
+            <p>Track sales, profit, expenses and product performance.</p>
         </div>
 
-        <div class="feature-card">
-            <h3>📦 Inventory Control</h3>
-            <p>Manage stock, detect low stock and identify dead products.</p>
+        <div class="feature-box">
+            <h3>📦 Inventory</h3>
+            <p>Manage stock, low stock alerts and dead stock products.</p>
         </div>
 
-        <div class="feature-card">
-            <h3>🧾 Billing System</h3>
-            <p>Create bills, invoices, GST calculation and customer records.</p>
+        <div class="feature-box">
+            <h3>🧾 Billing</h3>
+            <p>Create bills, invoices and customer purchase history.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-box">
             <h3>🤖 AI Assistant</h3>
-            <p>Ask business questions and get smart recommendations.</p>
+            <p>Get smart business suggestions and sales insights.</p>
         </div>
     </div>
 </section>
-
-<section class="why-section">
-    <h2>Why ShopVision AI?</h2>
-    <p>
-        This project combines full stack development, database management,
-        analytics, machine learning and AI assistance for real supermarket business usage.
-    </p>
-</section>
-
-<footer>
-    <p>© 2026 ShopVision AI | Built for Smart Business Analytics</p>
-</footer>
 
 {% endblock %}
