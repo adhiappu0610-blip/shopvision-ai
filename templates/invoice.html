@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="invoice panel">
+
+    <h1>🛒 ShopVision AI Invoice</h1>
+
+    <p><b>Bill ID:</b> #{{ bill['id'] }}</p>
+    <p><b>Customer:</b> {{ bill['customer'] }}</p>
+    <p><b>Date:</b> {{ bill['created_at'] }}</p>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+
+        {% for item in items %}
+        <tr>
+            <td>{{ item['product'] }}</td>
+            <td>{{ item['qty'] }}</td>
+            <td>₹{{ item['price'] }}</td>
+            <td>₹{{ item['total'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3>Subtotal: ₹{{ bill['subtotal'] }}</h3>
+    <h3>GST 5%: ₹{{ bill['gst'] }}</h3>
+    <h2>Grand Total: ₹{{ bill['grand_total'] }}</h2>
+
+    <button onclick="window.print()">Download / Save PDF</button>
+
+</div>
+
+{% endblock %}

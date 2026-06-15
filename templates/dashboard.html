@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Dashboard</h1>
+
+<div class="cards">
+    <div class="card"><p>Total Sales</p><h2>₹{{ total_sales }}</h2></div>
+    <div class="card"><p>Gross Profit</p><h2>₹{{ gross_profit }}</h2></div>
+    <div class="card"><p>Expenses</p><h2>₹{{ expenses }}</h2></div>
+    <div class="card"><p>Net Profit</p><h2>₹{{ net_profit }}</h2></div>
+    <div class="card"><p>Products</p><h2>{{ products_count }}</h2></div>
+    <div class="card"><p>Bills</p><h2>{{ bills_count }}</h2></div>
+    <div class="card"><p>Low Stock</p><h2>{{ low_stock }}</h2></div>
+    <div class="card"><p>Dead Stock</p><h2>{{ dead_stock }}</h2></div>
+    <div class="card"><p>Best Selling</p><h2>{{ best_product }}</h2></div>
+    <div class="card"><p>ML Future Sales</p><h2>{{ future_sales }} units</h2></div>
+    <div class="card"><p>Profit Margin</p><h2>{{ profit_margin }}%</h2></div>
+</div>
+
+<div class="grid-two">
+
+    <div class="panel">
+        <h2>📈 AI Sales Forecast Graph</h2>
+
+        <canvas id="salesBarChart"
+            data-labels='[{% for item in chart_data %}"{{ item["product"] }}"{% if not loop.last %},{% endif %}{% endfor %}]'
+            data-values='[{% for item in chart_data %}{{ item["sold"] }}{% if not loop.last %},{% endif %}{% endfor %}]'>
+        </canvas>
+
+        <div class="forecast-box">
+            🤖 ML Prediction: Future sales may reach <b>{{ future_sales }}</b> units.
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>🥧 Sales Share</h2>
+
+        <canvas id="salesDonutChart"
+            data-labels='[{% for item in chart_data %}"{{ item["product"] }}"{% if not loop.last %},{% endif %}{% endfor %}]'
+            data-values='[{% for item in chart_data %}{{ item["sold"] }}{% if not loop.last %},{% endif %}{% endfor %}]'>
+        </canvas>
+    </div>
+
+</div>
+
+<div class="grid-two">
+
+    <div class="panel">
+        <h2>🤖 AI Business Suggestions</h2>
+
+        {% for p in low_products %}
+        <div class="alert-line">
+            ⚠️ Restock <b>{{ p["product"] }}</b> — Current Stock: {{ p["stock"] }}
+        </div>
+        {% endfor %}
+
+        <div class="alert-line">
+            💡 Focus more on <b>{{ best_product }}</b> because it is the best selling product.
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>📌 Business Summary</h2>
+
+        <div class="summary-list">
+            <p>✅ Current profit margin: <b>{{ profit_margin }}%</b></p>
+            <p>✅ Best product: <b>{{ best_product }}</b></p>
+            <p>✅ Low stock products: <b>{{ low_stock }}</b></p>
+            <p>✅ Dead stock products: <b>{{ dead_stock }}</b></p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

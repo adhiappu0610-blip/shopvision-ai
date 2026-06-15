@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Smart Billing</h1>
+<div class="panel">
+    <form method="POST">
+        <input type="text" name="customer" placeholder="Customer Name" required>
+        <input type="text" name="phone" placeholder="Customer Phone Optional">
+
+        <div id="items">
+            <div class="bill-row">
+                <select name="product_id" required>
+                    {% for p in products %}
+                    <option value="{{ p['id'] }}">{{ p['product'] }} - ₹{{ p['price'] }} | Stock: {{ p['stock'] }}</option>
+                    {% endfor %}
+                </select>
+                <input type="number" name="qty" placeholder="Qty" min="1" value="1" required>
+            </div>
+        </div>
+
+        <button type="button" onclick="addRow()">+ Add Product</button>
+        <button type="submit">Generate Bill</button>
+    </form>
+</div>
+{% endblock %}

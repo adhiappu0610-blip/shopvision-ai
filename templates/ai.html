@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>AI Business Assistant 🤖</h1>
+<div class="ai-layout">
+    <div class="panel">
+        <form method="POST">
+            <textarea name="question" placeholder="Ask AI: predict high and low product sales this month..." required></textarea>
+            <button type="submit">Ask AI</button>
+        </form>
+        {% if answer %}
+        <div class="ai-answer">
+            <h3>AI Response</h3>
+            <pre>{{ answer }}</pre>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="panel">
+        <h3>Suggested Questions</h3>
+        <p>Predict high and low product sales this month</p>
+        <p>Which products need reorder?</p>
+        <p>Show slow moving products</p>
+        <p>Which product gives highest profit?</p>
+        <p>Which product is best selling?</p>
+    </div>
+</div>
+{% endblock %}

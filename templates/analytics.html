@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Analytics</h1>
+
+<div class="cards">
+    <div class="card"><p>Total Billing Sales</p><h2>₹{{ billing_sales }}</h2></div>
+    <div class="card"><p>Total Bills</p><h2>{{ bills_count }}</h2></div>
+    <div class="card"><p>Total Customers</p><h2>{{ customer_count }}</h2></div>
+    <div class="card"><p>Top Customer</p><h2>{{ top_customer }}</h2></div>
+</div>
+
+<div class="panel">
+    <h2>Customer Purchase Analytics</h2>
+
+    <table>
+        <tr>
+            <th>Customer</th>
+            <th>Total Bills</th>
+            <th>Total Purchase</th>
+        </tr>
+
+        {% for c in customers %}
+        <tr>
+            <td>{{ c["customer"] }}</td>
+            <td>{{ c["bill_count"] }}</td>
+            <td>₹{{ c["total_purchase"] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="panel">
+    <h2>Product Profit Ranking</h2>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Sold</th>
+            <th>Stock</th>
+            <th>Profit/Unit</th>
+            <th>Total Profit</th>
+        </tr>
+
+        {% for p in profit_rows %}
+        <tr>
+            <td>{{ p.product }}</td>
+            <td>{{ p.category }}</td>
+            <td>{{ p.sold }}</td>
+            <td>{{ p.stock }}</td>
+            <td>₹{{ p.profit_per_unit }}</td>
+            <td>₹{{ p.profit }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+{% endblock %}

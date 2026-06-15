@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Monthly Profit Report</h1>
+
+<div class="cards">
+    <div class="card"><p>Total Bills</p><h2>{{ total_bills }}</h2></div>
+    <div class="card"><p>Total Revenue</p><h2>₹{{ total_revenue }}</h2></div>
+    <div class="card"><p>Total GST</p><h2>₹{{ total_gst }}</h2></div>
+    <div class="card"><p>Estimated Profit</p><h2>₹{{ estimated_profit }}</h2></div>
+</div>
+
+<div class="panel">
+    <h2>AI Monthly Business Summary</h2>
+
+    <div class="alert-line">
+        📈 Revenue this month is ₹{{ total_revenue }}.
+    </div>
+
+    <div class="alert-line">
+        💰 Estimated profit is ₹{{ estimated_profit }}.
+    </div>
+
+    <div class="alert-line">
+        🤖 Suggestion: Increase stock for fast selling products and reduce low demand products.
+    </div>
+</div>
+
+{% endblock %}
