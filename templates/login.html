@@ -1,26 +1,23 @@
 {% extends "base.html" %}
+
 {% block content %}
 
-<a href="/" class="back-home">← Back to Home</a>
+<section class="auth-page">
+    <div class="auth-card">
+        <h2>Welcome Back</h2>
+        <p>Login to manage your ShopVision AI dashboard</p>
 
-<div class="auth-box">
-    <h1>Welcome Back 👋</h1>
-    <p>Login to continue your ShopVision AI dashboard</p>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Enter username" required>
+            <input type="password" name="password" placeholder="Enter password" required>
 
-    <form method="POST">
-        <label>Email Address</label>
-        <input type="email" name="email" placeholder="Enter your registered email" required>
+            <button type="submit">Login</button>
+        </form>
 
-        <label>Password</label>
-        <input type="password" name="password" placeholder="Enter your password" required>
-
-        <button type="submit">Login</button>
-    </form>
-
-    <p class="auth-note">
-        New to ShopVision AI?
-        <a href="/register">Create an account</a>
-    </p>
-</div>
+        <p class="auth-link">
+            New user? <a href="/register">Create account</a>
+        </p>
+    </div>
+</section>
 
 {% endblock %}
