@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ShopVision AI Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+{% if session.get("user_id") %}
+
+<div class="sidebar">
+    <h2>🛒 ShopVision AI</h2>
+
+    <a href="/dashboard">Dashboard</a>
+    <a href="/billing">Billing</a>
+    <a href="/inventory">Inventory</a>
+    <a href="/analytics">Analytics</a>
+    <a href="/reports">Reports</a>
+    <a href="/ai">AI Assistant</a>
+    <a href="/logout">Logout</a>
+</div>
+
+{% endif %}
+
+<div class="{% if session.get('user_id') %}content{% else %}auth-content{% endif %}">
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="alert {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+
+    {% if session.get("user_id") %}
+
+    <div class="inside-footer">
+        <div class="inside-footer-card">
+            <h3>📩 Support</h3>
+            <p>Need help with billing, inventory, reports or AI prediction?</p>
+            <b>support@shopvisionai.com</b>
+        </div>
+
+        <div class="inside-footer-card">
+            <h3>⭐ Retailer Review</h3>
+            <p>“ShopVision AI made billing, stock tracking and reports very easy.”</p>
+            <b>- Supermarket Owner</b>
+        </div>
+
+        <div class="inside-footer-card">
+            <h3>🔒 Secure Platform</h3>
+            <p>Your business data is stored safely in SQLite database.</p>
+            <b>Protected</b>
+        </div>
+    </div>
+
+    {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>
