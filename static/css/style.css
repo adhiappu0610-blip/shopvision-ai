@@ -324,3 +324,89 @@ footer {
         grid-template-columns: 1fr;
     }
 }
+/* REGISTER PAGE */
+
+.auth-container{
+    width:100%;
+    min-height:90vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+    radial-gradient(circle at top left,#2563eb33,transparent 30%),
+    radial-gradient(circle at bottom right,#06b6d433,transparent 30%),
+    #020617;
+}
+
+.auth-box{
+    width:420px;
+    padding:45px;
+    border-radius:25px;
+    background:rgba(15,23,42,0.85);
+    border:1px solid rgba(255,255,255,0.1);
+    backdrop-filter:blur(12px);
+    box-shadow:0 0 40px rgba(37,99,235,0.25);
+}
+
+.auth-box h1{
+    font-size:40px;
+    margin-bottom:10px;
+    color:white;
+}
+
+.auth-box p{
+    color:#cbd5e1;
+    margin-bottom:30px;
+    line-height:1.6;
+}
+
+.auth-box form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.auth-box input{
+    width:100%;
+    padding:16px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:#0f172a;
+    color:white;
+    font-size:15px;
+    border:1px solid #1e293b;
+}
+
+.auth-box input:focus{
+    border:1px solid #38bdf8;
+    box-shadow:0 0 10px #38bdf855;
+}
+
+.auth-box button{
+    padding:16px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#2563eb,#06b6d4);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.auth-box button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 20px #38bdf866;
+}
+
+.bottom-text{
+    margin-top:25px;
+    text-align:center;
+    color:#cbd5e1;
+}
+
+.bottom-text a{
+    color:#38bdf8;
+    text-decoration:none;
+}
