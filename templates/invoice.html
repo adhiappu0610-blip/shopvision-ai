@@ -1,38 +1,44 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="invoice panel">
+<section class="page">
+    <div class="invoice-box">
+        <div class="invoice-head">
+            <div>
+                <h1>ShopVision AI Invoice</h1>
+                <p>Smart Supermarket Billing System</p>
+            </div>
+            <button onclick="window.print()" class="primary-btn">Print Invoice</button>
+        </div>
 
-    <h1>🛒 ShopVision AI Invoice</h1>
+        <div class="invoice-info">
+            <p><b>Bill ID:</b> #{{ bill.id }}</p>
+            <p><b>Customer:</b> {{ bill.customer }}</p>
+            <p><b>Phone:</b> {{ bill.phone }}</p>
+            <p><b>Date:</b> {{ bill.created_at }}</p>
+            <p><b>Payment:</b> {{ bill.payment_method }}</p>
+        </div>
 
-    <p><b>Bill ID:</b> #{{ bill['id'] }}</p>
-    <p><b>Customer:</b> {{ bill['customer'] }}</p>
-    <p><b>Date:</b> {{ bill['created_at'] }}</p>
+        <div class="table-wrap">
+            <table>
+                <tr><th>Product</th><th>Qty</th><th>Price</th><th>Total</th></tr>
+                {% for item in items %}
+                <tr>
+                    <td>{{ item.product }}</td>
+                    <td>{{ item.qty }}</td>
+                    <td>{{ item.price|money }}</td>
+                    <td>{{ item.total|money }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
 
-    <table>
-        <tr>
-            <th>Product</th>
-            <th>Qty</th>
-            <th>Price</th>
-            <th>Total</th>
-        </tr>
-
-        {% for item in items %}
-        <tr>
-            <td>{{ item['product'] }}</td>
-            <td>{{ item['qty'] }}</td>
-            <td>₹{{ item['price'] }}</td>
-            <td>₹{{ item['total'] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <h3>Subtotal: ₹{{ bill['subtotal'] }}</h3>
-    <h3>GST 5%: ₹{{ bill['gst'] }}</h3>
-    <h2>Grand Total: ₹{{ bill['grand_total'] }}</h2>
-
-    <button onclick="window.print()">Download / Save PDF</button>
-
-</div>
+        <div class="totals">
+            <p>Subtotal: <b>{{ bill.subtotal|money }}</b></p>
+            <p>GST 5%: <b>{{ bill.gst|money }}</b></p>
+            <h2>Grand Total: {{ bill.grand_total|money }}</h2>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
