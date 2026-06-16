@@ -1,23 +1,19 @@
 {% extends "base.html" %}
-
 {% block content %}
 
 <section class="auth-page">
-    <div class="auth-box">
+    <div class="auth-card">
         <h1>Create Account 🚀</h1>
         <p>Start managing your supermarket with AI insights</p>
 
         <form method="POST">
-            <input type="text" name="username" placeholder="Enter username" required>
+            <input type="text" name="name" placeholder="Enter full name" required>
+            <input type="email" name="email" placeholder="Enter email address" required>
             <input type="password" name="password" placeholder="Create password" required>
-
             <button type="submit">Create Account</button>
         </form>
 
-        <div class="bottom-text">
-            Already have an account?
-            <a href="/login">Login here</a>
-        </div>
+        <p class="small-text">Already have an account? <a href="/login">Login here</a></p>
     </div>
 </section>
 
