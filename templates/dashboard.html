@@ -1,75 +1,74 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Dashboard</h1>
+<section class="page">
+    <div class="page-head">
+        <div>
+            <p class="eyebrow">Welcome, {{ session.get("name") }}</p>
+            <h1>Dashboard</h1>
+        </div>
+        <a href="/billing" class="primary-btn">Create Bill</a>
+    </div>
 
-<div class="cards">
-    <div class="card"><p>Total Sales</p><h2>₹{{ total_sales }}</h2></div>
-    <div class="card"><p>Gross Profit</p><h2>₹{{ gross_profit }}</h2></div>
-    <div class="card"><p>Expenses</p><h2>₹{{ expenses }}</h2></div>
-    <div class="card"><p>Net Profit</p><h2>₹{{ net_profit }}</h2></div>
-    <div class="card"><p>Products</p><h2>{{ products_count }}</h2></div>
-    <div class="card"><p>Bills</p><h2>{{ bills_count }}</h2></div>
-    <div class="card"><p>Low Stock</p><h2>{{ low_stock }}</h2></div>
-    <div class="card"><p>Dead Stock</p><h2>{{ dead_stock }}</h2></div>
-    <div class="card"><p>Best Selling</p><h2>{{ best_product }}</h2></div>
-    <div class="card"><p>ML Future Sales</p><h2>{{ future_sales }} units</h2></div>
-    <div class="card"><p>Profit Margin</p><h2>{{ profit_margin }}%</h2></div>
-</div>
+    <div class="stats-grid">
+        <div class="stat-card"><span>Total Sales</span><h2>{{ stats.total_sales|money }}</h2><p>Product sales value</p></div>
+        <div class="stat-card"><span>Gross Profit</span><h2>{{ stats.gross_profit|money }}</h2><p>Before expenses</p></div>
+        <div class="stat-card"><span>Net Profit</span><h2>{{ stats.net_profit|money }}</h2><p>After expenses</p></div>
+        <div class="stat-card"><span>Products</span><h2>{{ stats.products_count }}</h2><p>Total inventory items</p></div>
+        <div class="stat-card warning"><span>Low Stock</span><h2>{{ stats.low_stock }}</h2><p>Need reorder</p></div>
+        <div class="stat-card danger-card"><span>Dead Stock</span><h2>{{ stats.dead_stock }}</h2><p>Not selling</p></div>
+        <div class="stat-card"><span>Bills</span><h2>{{ stats.bills_count }}</h2><p>Invoices generated</p></div>
+        <div class="stat-card"><span>ML Forecast</span><h2>{{ future_sales }}</h2><p>Future sales units</p></div>
+    </div>
 
-<div class="grid-two">
+    <div class="two-grid">
+        <div class="panel">
+            <h2>📈 Top Selling Products</h2>
+            <canvas id="salesChart"></canvas>
+        </div>
 
-    <div class="panel">
-        <h2>📈 AI Sales Forecast Graph</h2>
-
-        <canvas id="salesBarChart"
-            data-labels='[{% for item in chart_data %}"{{ item["product"] }}"{% if not loop.last %},{% endif %}{% endfor %}]'
-            data-values='[{% for item in chart_data %}{{ item["sold"] }}{% if not loop.last %},{% endif %}{% endfor %}]'>
-        </canvas>
-
-        <div class="forecast-box">
-            🤖 ML Prediction: Future sales may reach <b>{{ future_sales }}</b> units.
+        <div class="panel">
+            <h2>🤖 AI Business Suggestions</h2>
+            <div class="suggestion">Restock products where stock is below 10 units.</div>
+            <div class="suggestion">Focus more on <b>{{ stats.best_product }}</b>, your best selling item.</div>
+            <div class="suggestion">Reduce dead stock by adding offers or discounts.</div>
         </div>
     </div>
 
-    <div class="panel">
-        <h2>🥧 Sales Share</h2>
-
-        <canvas id="salesDonutChart"
-            data-labels='[{% for item in chart_data %}"{{ item["product"] }}"{% if not loop.last %},{% endif %}{% endfor %}]'
-            data-values='[{% for item in chart_data %}{{ item["sold"] }}{% if not loop.last %},{% endif %}{% endfor %}]'>
-        </canvas>
-    </div>
-
-</div>
-
-<div class="grid-two">
-
-    <div class="panel">
-        <h2>🤖 AI Business Suggestions</h2>
-
-        {% for p in low_products %}
-        <div class="alert-line">
-            ⚠️ Restock <b>{{ p["product"] }}</b> — Current Stock: {{ p["stock"] }}
+    <div class="two-grid">
+        <div class="panel">
+            <h2>⚠️ Low Stock Alerts</h2>
+            <div class="table-wrap">
+                <table>
+                    <tr><th>Product</th><th>Category</th><th>Stock</th></tr>
+                    {% for p in low_stock_items %}
+                    <tr><td>{{ p.product }}</td><td>{{ p.category }}</td><td><span class="pill danger">{{ p.stock }}</span></td></tr>
+                    {% else %}
+                    <tr><td colspan="3">No low stock items.</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
-        {% endfor %}
 
-        <div class="alert-line">
-            💡 Focus more on <b>{{ best_product }}</b> because it is the best selling product.
-        </div>
-    </div>
-
-    <div class="panel">
-        <h2>📌 Business Summary</h2>
-
-        <div class="summary-list">
-            <p>✅ Current profit margin: <b>{{ profit_margin }}%</b></p>
-            <p>✅ Best product: <b>{{ best_product }}</b></p>
-            <p>✅ Low stock products: <b>{{ low_stock }}</b></p>
-            <p>✅ Dead stock products: <b>{{ dead_stock }}</b></p>
+        <div class="panel">
+            <h2>🧾 Recent Bills</h2>
+            <div class="table-wrap">
+                <table>
+                    <tr><th>ID</th><th>Customer</th><th>Total</th><th>Date</th></tr>
+                    {% for b in recent_bills %}
+                    <tr><td>#{{ b.id }}</td><td>{{ b.customer }}</td><td>{{ b.grand_total|money }}</td><td>{{ b.created_at }}</td></tr>
+                    {% else %}
+                    <tr><td colspan="4">No bills generated yet.</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
         </div>
     </div>
+</section>
 
-</div>
+<script>
+window.chartLabels = {{ labels|tojson }};
+window.chartValues = {{ values|tojson }};
+</script>
 
 {% endblock %}
