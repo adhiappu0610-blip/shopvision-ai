@@ -1,59 +1,59 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Analytics</h1>
+<section class="page">
+    <div class="page-head">
+        <div>
+            <p class="eyebrow">Business Intelligence</p>
+            <h1>Analytics</h1>
+        </div>
+    </div>
 
-<div class="cards">
-    <div class="card"><p>Total Billing Sales</p><h2>₹{{ billing_sales }}</h2></div>
-    <div class="card"><p>Total Bills</p><h2>{{ bills_count }}</h2></div>
-    <div class="card"><p>Total Customers</p><h2>{{ customer_count }}</h2></div>
-    <div class="card"><p>Top Customer</p><h2>{{ top_customer }}</h2></div>
-</div>
+    <div class="stats-grid">
+        <div class="stat-card"><span>Total Sales</span><h2>{{ stats.total_sales|money }}</h2></div>
+        <div class="stat-card"><span>Gross Profit</span><h2>{{ stats.gross_profit|money }}</h2></div>
+        <div class="stat-card"><span>Net Profit</span><h2>{{ stats.net_profit|money }}</h2></div>
+        <div class="stat-card"><span>Best Product</span><h2>{{ stats.best_product }}</h2></div>
+    </div>
 
-<div class="panel">
-    <h2>Customer Purchase Analytics</h2>
+    <div class="two-grid">
+        <div class="panel">
+            <h2>📊 Category Sales</h2>
+            <canvas id="categoryChart"></canvas>
+        </div>
 
-    <table>
-        <tr>
-            <th>Customer</th>
-            <th>Total Bills</th>
-            <th>Total Purchase</th>
-        </tr>
+        <div class="panel">
+            <h2>💰 Category Profit</h2>
+            <canvas id="profitChart"></canvas>
+        </div>
+    </div>
 
-        {% for c in customers %}
-        <tr>
-            <td>{{ c["customer"] }}</td>
-            <td>{{ c["bill_count"] }}</td>
-            <td>₹{{ c["total_purchase"] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+    <div class="panel">
+        <h2>🏆 Product Profit Ranking</h2>
+        <div class="table-wrap">
+            <table>
+                <tr><th>Product</th><th>Category</th><th>Sold</th><th>Stock</th><th>Profit/Unit</th><th>Total Profit</th></tr>
+                {% for p in products %}
+                <tr>
+                    <td>{{ p.product }}</td>
+                    <td>{{ p.category }}</td>
+                    <td>{{ p.sold }}</td>
+                    <td>{{ p.stock }}</td>
+                    <td>{{ p.profit_per_unit|money }}</td>
+                    <td>{{ p.total_profit|money }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="6">No product data.</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</section>
 
-<div class="panel">
-    <h2>Product Profit Ranking</h2>
-
-    <table>
-        <tr>
-            <th>Product</th>
-            <th>Category</th>
-            <th>Sold</th>
-            <th>Stock</th>
-            <th>Profit/Unit</th>
-            <th>Total Profit</th>
-        </tr>
-
-        {% for p in profit_rows %}
-        <tr>
-            <td>{{ p.product }}</td>
-            <td>{{ p.category }}</td>
-            <td>{{ p.sold }}</td>
-            <td>{{ p.stock }}</td>
-            <td>₹{{ p.profit_per_unit }}</td>
-            <td>₹{{ p.profit }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+<script>
+window.categoryLabels = {{ labels|tojson }};
+window.categorySales = {{ sales|tojson }};
+window.categoryProfit = {{ profit|tojson }};
+</script>
 
 {% endblock %}
