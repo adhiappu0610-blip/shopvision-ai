@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, session, flash, mak
 import sqlite3
 import csv
 import os
-from datetime import datetime 
+from datetime import datetime
 from io import StringIO
 
 import pandas as pd
@@ -10,7 +10,9 @@ import numpy as np
 from sklearn.linear_model import LinearRegression
 
 app = Flask(__name__)
-app.secret_key = "shopvision_ai_secret_key"
+app.secret_key = "shopvision_super_secure_key_2026"
+app.config["SESSION_COOKIE_SECURE"] = False
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
 
 DB = "shopvision.db"
 CSV_FILE = "data/sample_sales.csv"
@@ -239,10 +241,8 @@ def register():
             conn.commit()
             flash("Registration successful. Please login.", "success")
             return redirect("/login")
-
         except:
             flash("Email already exists.", "danger")
-
         finally:
             conn.close()
 
@@ -566,9 +566,9 @@ def generate_bill():
 
     for item in cart:
         cur.execute("SELECT stock FROM products WHERE id=?", (item["product_id"],))
-        stock = cur.fetchone()["stock"]
+        product_stock = cur.fetchone()
 
-        if stock < item["qty"]:
+        if not product_stock or product_stock["stock"] < item["qty"]:
             conn.close()
             flash(f"Not enough stock for {item['product']}.", "danger")
             return redirect("/billing")
@@ -774,48 +774,100 @@ def ai():
     products = cur.fetchall()
 
     if request.method == "POST":
-        question = request.form["question"]
+        question = request.form.get("question", "")
         q = question.lower()
 
-        matched = None
+        if "which ml model" in q or "ml model" in q:
+            answer = "Linear Regression model is used in this project for future supermarket sales prediction."
 
-        for p in products:
-            if p["product"].lower() in q:
-                matched = p
-                break
+        elif "linear regression" in q:
+            answer = "Linear Regression is a machine learning algorithm that predicts future values using previous data trends. Formula: y = mx + b."
 
-        if matched:
-            p = matched
-            profit_per_unit = round(p["price"] - p["cost"], 2)
-            total_profit = round((p["price"] - p["cost"]) * p["sold"], 2)
+        elif "future sales prediction" in q or "prediction works" in q:
+            answer = "Future sales prediction works by taking previous sold product values, training a Linear Regression model, and predicting the next sales value."
 
-            if "stock" in q:
-                answer = f"{p['product']} stock is {p['stock']} units."
-            elif "price" in q:
-                answer = f"{p['product']} price is ₹{p['price']}."
-            elif "profit" in q:
-                answer = f"{p['product']} profit per unit is ₹{profit_per_unit}. Total profit is ₹{total_profit}."
-            elif "predict" in q:
-                answer = f"{p['product']} next month predicted sales may reach {int(p['sold'] * 1.15)} units."
-            else:
-                answer = f"{p['product']} details: price ₹{p['price']}, stock {p['stock']}, sold {p['sold']}."
+        elif "next month sales" in q or "sales forecast" in q or "forecast" in q:
+            answer = f"Predicted future sales using Linear Regression: {predict_future_sales()} units."
 
-        elif "best" in q:
-            if products:
-                best = max(products, key=lambda x: x["sold"])
-                answer = f"Best selling product is {best['product']} with {best['sold']} units sold."
-            else:
-                answer = "No product data."
+        elif "dataset" in q:
+            answer = "The project uses a supermarket sales CSV dataset with product, category, price, cost, stock, sold and branch fields."
 
-        elif "low stock" in q:
-            low = [p for p in products if p["stock"] <= 10]
-            answer = ", ".join([p["product"] for p in low]) if low else "No low stock items."
+        elif "how many products" in q:
+            answer = f"Currently {len(products)} products are analyzed in the system."
 
-        elif "forecast" in q or "ml" in q:
-            answer = f"ML Linear Regression forecast: future sales may reach {predict_future_sales()} units."
+        elif "machine learning help" in q:
+            answer = "Machine learning helps supermarkets forecast demand, plan stock, reduce dead stock and improve profit decisions."
+
+        elif "purpose of ai" in q:
+            answer = "AI helps analyze stock, price, profit, best selling products, low stock items and sales forecast."
+
+        elif "explain prediction model" in q:
+            answer = "The prediction model uses Linear Regression from scikit-learn. It learns sales trend from previous sold values and predicts future sales."
 
         else:
-            answer = "Ask like: stock of milk, price of rice, profit of oil, best selling product, low stock items, sales forecast."
+            matched = None
+
+            for p in products:
+                pname = p["product"].lower()
+
+                if pname in q:
+                    matched = p
+                    break
+
+                for word in pname.split():
+                    if len(word) >= 3 and word in q:
+                        matched = p
+                        break
+
+                if matched:
+                    break
+
+            if matched:
+                p = matched
+                profit_per_unit = round(p["price"] - p["cost"], 2)
+                total_profit = round((p["price"] - p["cost"]) * p["sold"], 2)
+
+                if "stock" in q:
+                    answer = f"{p['product']} stock is {p['stock']} units."
+                elif "price" in q or "rate" in q:
+                    answer = f"{p['product']} price is ₹{p['price']}."
+                elif "profit" in q:
+                    answer = f"{p['product']} profit per unit is ₹{profit_per_unit}. Total profit is ₹{total_profit}."
+                elif "predict" in q:
+                    answer = f"{p['product']} next month predicted sales may reach {int(p['sold'] * 1.15)} units."
+                else:
+                    answer = f"{p['product']} details: price ₹{p['price']}, stock {p['stock']}, sold {p['sold']}."
+
+            elif "best" in q:
+                if products:
+                    best = max(products, key=lambda x: x["sold"])
+                    answer = f"Best selling product is {best['product']} with {best['sold']} units sold."
+                else:
+                    answer = "No product data."
+
+            elif "low stock" in q or "reorder" in q:
+                low = [p for p in products if p["stock"] <= 10]
+                answer = ", ".join([p["product"] for p in low]) if low else "No low stock items."
+
+            elif "slow" in q or "dead" in q:
+                slow = [p for p in products if p["sold"] <= 70]
+                answer = ", ".join([p["product"] for p in slow]) if slow else "No slow moving products."
+
+            elif "price" in q:
+                answer = " | ".join([f"{p['product']} ₹{p['price']}" for p in products[:12]])
+
+            elif "stock" in q:
+                answer = " | ".join([f"{p['product']} stock {p['stock']}" for p in products[:12]])
+
+            elif "profit" in q:
+                profit_list = []
+                for p in products[:12]:
+                    total_profit = round((p["price"] - p["cost"]) * p["sold"], 2)
+                    profit_list.append(f"{p['product']} profit ₹{total_profit}")
+                answer = " | ".join(profit_list)
+
+            else:
+                answer = "Ask about stock, price, profit, best selling product, low stock, slow moving products, sales forecast or ML model."
 
         cur.execute("""
         INSERT INTO chat_history(question, answer, created_at)
@@ -828,7 +880,7 @@ def ai():
 
         conn.commit()
 
-    cur.execute("SELECT * FROM chat_history ORDER BY id DESC LIMIT 5")
+    cur.execute("SELECT * FROM chat_history ORDER BY id DESC LIMIT 10")
     history = cur.fetchall()
 
     conn.close()
