@@ -1,7 +1,9 @@
 {% extends "base.html" %}
+
 {% block content %}
 
 <section class="page">
+
     <div class="page-head">
         <div>
             <p class="eyebrow">AI Business Intelligence</p>
@@ -10,10 +12,16 @@
     </div>
 
     <div class="ai-grid">
+
         <div class="panel">
             <h2>Ask AI</h2>
+
             <form method="POST" class="ai-form">
-                <textarea name="question" placeholder="Ask: stock of milk, profit of rice, best selling product, low stock items..." required></textarea>
+                <textarea
+                    name="question"
+                    placeholder="Ask: stock of milk, best selling product, sales forecast, which ML model is used..."
+                    required></textarea>
+
                 <button type="submit">Ask AI</button>
             </form>
 
@@ -27,29 +35,61 @@
 
         <div class="panel">
             <h2>Suggested Questions</h2>
+
             <div class="question-list">
-                <span>Predict high and low product sales</span>
+                <span>Stock of milk</span>
+                <span>Best selling product</span>
+                <span>Low stock products</span>
+                <span>Profit of rice</span>
+                <span>Price of shampoo</span>
+                <span>Sales forecast</span>
                 <span>Which products need reorder?</span>
                 <span>Show slow moving products</span>
-                <span>Which product gives highest profit?</span>
-                <span>Which product is best selling?</span>
             </div>
+        </div>
+
+    </div>
+
+    <div class="panel">
+        <h2>ML Model Questions</h2>
+
+        <div class="question-list">
+            <span>Which ML model is used?</span>
+            <span>What is Linear Regression?</span>
+            <span>How future sales prediction works?</span>
+            <span>Predict next month sales</span>
+            <span>What dataset is used?</span>
+            <span>How does machine learning help supermarket business?</span>
+            <span>Explain prediction model</span>
         </div>
     </div>
 
     <div class="panel">
         <h2>Recent AI History</h2>
+
         <div class="table-wrap">
             <table>
-                <tr><th>Question</th><th>Answer</th><th>Date</th></tr>
+                <tr>
+                    <th>Question</th>
+                    <th>Answer</th>
+                    <th>Date</th>
+                </tr>
+
                 {% for h in history %}
-                <tr><td>{{ h.question }}</td><td>{{ h.answer }}</td><td>{{ h.created_at }}</td></tr>
+                <tr>
+                    <td>{{ h.question }}</td>
+                    <td>{{ h.answer }}</td>
+                    <td>{{ h.created_at }}</td>
+                </tr>
                 {% else %}
-                <tr><td colspan="3">No AI history yet.</td></tr>
+                <tr>
+                    <td colspan="3">No AI history yet.</td>
+                </tr>
                 {% endfor %}
             </table>
         </div>
     </div>
+
 </section>
 
 {% endblock %}
