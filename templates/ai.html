@@ -1,27 +1,55 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>AI Business Assistant 🤖</h1>
-<div class="ai-layout">
-    <div class="panel">
-        <form method="POST">
-            <textarea name="question" placeholder="Ask AI: predict high and low product sales this month..." required></textarea>
-            <button type="submit">Ask AI</button>
-        </form>
-        {% if answer %}
-        <div class="ai-answer">
-            <h3>AI Response</h3>
-            <pre>{{ answer }}</pre>
+
+<section class="page">
+    <div class="page-head">
+        <div>
+            <p class="eyebrow">AI Business Intelligence</p>
+            <h1>AI Business Assistant 🤖</h1>
         </div>
-        {% endif %}
+    </div>
+
+    <div class="ai-grid">
+        <div class="panel">
+            <h2>Ask AI</h2>
+            <form method="POST" class="ai-form">
+                <textarea name="question" placeholder="Ask: stock of milk, profit of rice, best selling product, low stock items..." required></textarea>
+                <button type="submit">Ask AI</button>
+            </form>
+
+            {% if answer %}
+            <div class="ai-answer">
+                <h3>AI Response</h3>
+                <p>{{ answer }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="panel">
+            <h2>Suggested Questions</h2>
+            <div class="question-list">
+                <span>Predict high and low product sales</span>
+                <span>Which products need reorder?</span>
+                <span>Show slow moving products</span>
+                <span>Which product gives highest profit?</span>
+                <span>Which product is best selling?</span>
+            </div>
+        </div>
     </div>
 
     <div class="panel">
-        <h3>Suggested Questions</h3>
-        <p>Predict high and low product sales this month</p>
-        <p>Which products need reorder?</p>
-        <p>Show slow moving products</p>
-        <p>Which product gives highest profit?</p>
-        <p>Which product is best selling?</p>
+        <h2>Recent AI History</h2>
+        <div class="table-wrap">
+            <table>
+                <tr><th>Question</th><th>Answer</th><th>Date</th></tr>
+                {% for h in history %}
+                <tr><td>{{ h.question }}</td><td>{{ h.answer }}</td><td>{{ h.created_at }}</td></tr>
+                {% else %}
+                <tr><td colspan="3">No AI history yet.</td></tr>
+                {% endfor %}
+            </table>
+        </div>
     </div>
-</div>
+</section>
+
 {% endblock %}
