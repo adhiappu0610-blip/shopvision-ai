@@ -1,35 +1,63 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h1>Reports</h1>
+<section class="page">
+    <div class="page-head">
+        <div>
+            <p class="eyebrow">Business Reports</p>
+            <h1>Reports</h1>
+        </div>
+        <a href="/export_bills" class="primary-btn">Export Bills CSV</a>
+    </div>
 
-<div class="panel">
-    <a class="btn-link" href="/export_bills_csv">⬇ Export Bills CSV</a>
-    <a class="btn-link" href="/monthly_report">📊 Monthly Profit Report</a>
+    <div class="two-grid">
+        <div class="panel">
+            <h2>📅 Monthly Profit Report</h2>
+            <div class="table-wrap">
+                <table>
+                    <tr><th>Month</th><th>Total Billing</th></tr>
+                    {% for m in monthly %}
+                    <tr><td>{{ m.month }}</td><td>{{ m.total|money }}</td></tr>
+                    {% else %}
+                    <tr><td colspan="2">No monthly data.</td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
 
-    <table>
-        <tr>
-            <th>Bill ID</th>
-            <th>Customer</th>
-            <th>Subtotal</th>
-            <th>GST</th>
-            <th>Grand Total</th>
-            <th>Date</th>
-            <th>Invoice</th>
-        </tr>
+        <div class="panel">
+            <h2>📌 Report Options</h2>
+            <div class="suggestion">✅ Export bill report as CSV</div>
+            <div class="suggestion">✅ View customer billing history</div>
+            <div class="suggestion">✅ Open invoice from each bill</div>
+        </div>
+    </div>
 
-        {% for b in bills %}
-        <tr>
-            <td>#{{ b['id'] }}</td>
-            <td>{{ b['customer'] }}</td>
-            <td>₹{{ b['subtotal'] }}</td>
-            <td>₹{{ b['gst'] }}</td>
-            <td>₹{{ b['grand_total'] }}</td>
-            <td>{{ b['created_at'] }}</td>
-            <td><a href="/invoice/{{ b['id'] }}">View / PDF</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+    <div class="panel">
+        <h2>🧾 Billing History</h2>
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Bill ID</th><th>Customer</th><th>Phone</th><th>Subtotal</th>
+                    <th>GST</th><th>Grand Total</th><th>Date</th><th>Invoice</th>
+                </tr>
+                {% for b in bills %}
+                <tr>
+                    <td>#{{ b.id }}</td>
+                    <td>{{ b.customer }}</td>
+                    <td>{{ b.phone }}</td>
+                    <td>{{ b.subtotal|money }}</td>
+                    <td>{{ b.gst|money }}</td>
+                    <td>{{ b.grand_total|money }}</td>
+                    <td>{{ b.created_at }}</td>
+                    <td><a href="/invoice/{{ b.id }}" class="small-btn">Open</a></td>
+                </tr>
+                {% else %}
+                <tr><td colspan="8">No bills found.</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</section>
 
 {% endblock %}
