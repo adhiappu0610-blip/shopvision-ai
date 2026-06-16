@@ -1,57 +1,59 @@
-function addRow(){
-    let items = document.getElementById("items");
-    let firstRow = document.querySelector(".bill-row");
-
-    if(firstRow){
-        let newRow = firstRow.cloneNode(true);
-        newRow.querySelector("input").value = 1;
-        items.appendChild(newRow);
-    }
-}
-
-window.onload = function(){
-
-    let barCanvas = document.getElementById("salesBarChart");
-
-    if(barCanvas){
-        let labels = JSON.parse(barCanvas.dataset.labels);
-        let values = JSON.parse(barCanvas.dataset.values);
-
-        new Chart(barCanvas, {
+document.addEventListener("DOMContentLoaded", () => {
+    const salesCanvas = document.getElementById("salesChart");
+    if (salesCanvas && window.chartLabels) {
+        new Chart(salesCanvas, {
             type: "bar",
             data: {
-                labels: labels,
+                labels: window.chartLabels,
                 datasets: [{
-                    label: "Units Sold",
-                    data: values,
-                    borderWidth: 1
+                    label: "Sold Units",
+                    data: window.chartValues
                 }]
             },
             options: {
-                responsive: true
+                responsive: true,
+                plugins: { legend: { labels: { color: "#fff" } } },
+                scales: {
+                    x: { ticks: { color: "#cbd5e1" } },
+                    y: { ticks: { color: "#cbd5e1" } }
+                }
             }
         });
     }
 
-    let donutCanvas = document.getElementById("salesDonutChart");
-
-    if(donutCanvas){
-        let labels = JSON.parse(donutCanvas.dataset.labels);
-        let values = JSON.parse(donutCanvas.dataset.values);
-
-        new Chart(donutCanvas, {
+    const categoryCanvas = document.getElementById("categoryChart");
+    if (categoryCanvas && window.categoryLabels) {
+        new Chart(categoryCanvas, {
             type: "doughnut",
             data: {
-                labels: labels,
+                labels: window.categoryLabels,
                 datasets: [{
-                    label: "Sales Share",
-                    data: values
+                    label: "Sales",
+                    data: window.categorySales
                 }]
-            },
-            options: {
-                responsive: true
             }
         });
     }
 
-};
+    const profitCanvas = document.getElementById("profitChart");
+    if (profitCanvas && window.categoryLabels) {
+        new Chart(profitCanvas, {
+            type: "bar",
+            data: {
+                labels: window.categoryLabels,
+                datasets: [{
+                    label: "Profit",
+                    data: window.categoryProfit
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { labels: { color: "#fff" } } },
+                scales: {
+                    x: { ticks: { color: "#cbd5e1" } },
+                    y: { ticks: { color: "#cbd5e1" } }
+                }
+            }
+        });
+    }
+});
