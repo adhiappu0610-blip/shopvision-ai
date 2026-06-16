@@ -1,24 +1,91 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Smart Billing</h1>
-<div class="panel">
-    <form method="POST">
-        <input type="text" name="customer" placeholder="Customer Name" required>
-        <input type="text" name="phone" placeholder="Customer Phone Optional">
 
-        <div id="items">
-            <div class="bill-row">
+<section class="page">
+    <div class="page-head">
+        <div>
+            <p class="eyebrow">Point of Sale</p>
+            <h1>Smart Billing</h1>
+        </div>
+        <a href="/reports" class="secondary-btn">View Reports</a>
+    </div>
+
+    <div class="billing-grid">
+        <div class="panel">
+            <h2>➕ Add Product to Bill</h2>
+
+            <form method="POST" action="/add_to_bill" class="stack-form">
+                <label>Select Product</label>
                 <select name="product_id" required>
+                    <option value="">Choose product</option>
                     {% for p in products %}
-                    <option value="{{ p['id'] }}">{{ p['product'] }} - ₹{{ p['price'] }} | Stock: {{ p['stock'] }}</option>
+                    <option value="{{ p.id }}">
+                        {{ p.product }} - ₹{{ p.price }} | Stock {{ p.stock }}
+                    </option>
                     {% endfor %}
                 </select>
-                <input type="number" name="qty" placeholder="Qty" min="1" value="1" required>
-            </div>
+
+                <label>Quantity</label>
+                <input type="number" name="qty" value="1" min="1" required>
+
+                <button type="submit">Add Product</button>
+            </form>
         </div>
 
-        <button type="button" onclick="addRow()">+ Add Product</button>
-        <button type="submit">Generate Bill</button>
-    </form>
-</div>
+        <div class="panel">
+            <h2>🧾 Current Bill</h2>
+
+            <div class="table-wrap">
+                <table>
+                    <tr>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                    </tr>
+
+                    {% for item in cart %}
+                    <tr>
+                        <td>{{ item.product }}</td>
+                        <td>{{ item.qty }}</td>
+                        <td>₹{{ item.price }}</td>
+                        <td>₹{{ item.total }}</td>
+                        <td>
+                            <a href="/remove_bill_item/{{ loop.index0 }}" class="small-btn delete">Remove</a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">No product added yet.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+
+            <div class="totals">
+                <p>Subtotal: <b>₹{{ subtotal }}</b></p>
+                <p>GST 5%: <b>₹{{ gst }}</b></p>
+                <h2>Grand Total: ₹{{ grand_total }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>✅ Generate Final Bill</h2>
+
+        <form method="POST" action="/generate_bill" class="form-grid">
+            <input name="customer" placeholder="Customer name" required>
+            <input name="phone" placeholder="Phone number">
+            <select name="payment_method">
+                <option>Cash</option>
+                <option>UPI</option>
+                <option>Card</option>
+                <option>Online</option>
+            </select>
+            <button type="submit">Generate Bill</button>
+        </form>
+    </div>
+</section>
+
 {% endblock %}
