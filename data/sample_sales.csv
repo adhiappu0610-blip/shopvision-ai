@@ -1,41 +1,51 @@
-month,product,category,price,cost,stock,sold,branch
-January,Rice 5kg,Grocery,350,280,45,120,Main
-January,Sugar 1kg,Grocery,50,34,80,200,Main
-January,Milk 1L,Dairy,60,45,30,180,Main
-January,Bread,Bakery,40,22,12,70,Main
-January,Eggs 12pcs,Dairy,90,68,20,150,Main
-February,Rice 5kg,Grocery,350,280,40,135,Main
-February,Sugar 1kg,Grocery,50,34,78,210,Main
-February,Milk 1L,Dairy,60,45,28,195,Main
-February,Bread,Bakery,40,22,10,85,Main
-February,Eggs 12pcs,Dairy,90,68,18,165,Main
-March,Rice 5kg,Grocery,350,280,38,150,Main
-March,Sugar 1kg,Grocery,50,34,75,220,Main
-March,Milk 1L,Dairy,60,45,25,205,Main
-March,Bread,Bakery,40,22,8,90,Main
-March,Eggs 12pcs,Dairy,90,68,15,170,Main
-April,Rice 5kg,Grocery,350,280,35,160,Main
-April,Sugar 1kg,Grocery,50,34,70,240,Main
-April,Milk 1L,Dairy,60,45,22,215,Main
-April,Bread,Bakery,40,22,7,95,Main
-April,Eggs 12pcs,Dairy,90,68,13,185,Main
-May,Rice 5kg,Grocery,350,280,30,180,Main
-May,Sugar 1kg,Grocery,50,34,68,250,Main
-May,Milk 1L,Dairy,60,45,20,225,Main
-May,Bread,Bakery,40,22,5,110,Main
-May,Eggs 12pcs,Dairy,90,68,10,200,Main
-June,Rice 5kg,Grocery,350,280,28,195,Main
-June,Sugar 1kg,Grocery,50,34,65,260,Main
-June,Milk 1L,Dairy,60,45,18,235,Main
-June,Bread,Bakery,40,22,4,120,Main
-June,Eggs 12pcs,Dairy,90,68,8,215,Main
-June,Soap,Personal Care,35,18,50,160,Main
-June,Shampoo,Personal Care,120,75,25,90,Main
-June,Chips,Snacks,25,12,15,145,Main
-June,Biscuits,Snacks,30,16,40,175,Main
-June,Chocolate,Snacks,45,28,32,190,Main
-June,Coffee,Beverage,95,60,10,65,Main
-June,Tea Powder,Beverage,110,75,12,85,Main
-June,Cool Drink,Beverage,40,22,22,180,Main
-June,Water Bottle,Beverage,20,10,90,280,Main
-June,Detergent,Home Care,150,100,14,70,Main
+product,category,price,cost,stock,sold,branch
+Rice 1kg,Grocery,65,50,120,90,Main
+Sugar 1kg,Grocery,48,35,150,110,Main
+Milk Packet,Dairy,30,22,200,180,Main
+Bread,Bakery,40,28,90,70,Main
+Eggs 12 Pack,Dairy,78,60,100,75,Main
+Cooking Oil 1L,Grocery,145,120,85,60,Main
+Tea Powder,Beverages,120,90,70,45,Main
+Coffee Powder,Beverages,220,180,65,40,Main
+Salt 1kg,Grocery,22,12,160,100,Main
+Biscuits Pack,Snacks,25,15,220,170,Main
+Chocolate Bar,Snacks,35,20,180,140,Main
+Soft Drink 1L,Beverages,90,65,95,80,Main
+Mineral Water,Beverages,20,8,300,240,Main
+Ice Cream,Dessert,120,85,50,35,Main
+Soap,Bath,38,24,140,90,Main
+Shampoo,Bath,180,135,70,50,Main
+Toothpaste,Personal Care,95,70,85,55,Main
+Detergent Powder,Home Care,210,160,65,40,Main
+Floor Cleaner,Home Care,160,120,55,30,Main
+Dish Wash Liquid,Home Care,110,80,70,45,Main
+Notebook,Stationery,45,25,130,80,Main
+Pen Blue,Stationery,12,5,400,260,Main
+Pencil,Stationery,8,3,350,200,Main
+Marker Pen,Stationery,35,18,120,75,Main
+Chips Large,Snacks,50,32,160,130,Main
+Noodles Pack,Food,28,18,210,160,Main
+Corn Flakes,Breakfast,180,145,55,35,Main
+Butter,Dairy,95,75,80,60,Main
+Cheese Slice,Dairy,140,110,60,40,Main
+Curd Cup,Dairy,35,22,100,70,Main
+Banana,Fruits,60,35,140,95,Main
+Apple,Fruits,180,140,90,60,Main
+Orange,Fruits,120,90,75,50,Main
+Tomato,Vegetables,40,20,180,140,Main
+Potato,Vegetables,35,18,220,170,Main
+Onion,Vegetables,50,28,200,150,Main
+Carrot,Vegetables,70,45,120,80,Main
+Chicken 1kg,Meat,260,220,60,40,Main
+Fish 1kg,Meat,320,270,45,30,Main
+Frozen Peas,Frozen,95,70,65,40,Main
+Frozen Fries,Frozen,150,115,50,28,Main
+Pizza Base,Frozen,85,60,55,32,Main
+Tomato Ketchup,Food,110,80,75,55,Main
+Mayonnaise,Food,145,115,60,38,Main
+Jam Bottle,Food,125,90,55,35,Main
+Honey Bottle,Food,240,190,40,22,Main
+Baby Diapers,Baby Care,520,450,35,20,Main
+Baby Soap,Baby Care,75,50,80,55,Main
+Baby Powder,Baby Care,130,95,60,40,Main
+Pet Food,Pet Care,350,290,40,25,Main
