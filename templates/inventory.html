@@ -1,49 +1,71 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Inventory Management</h1>
 
-<div class="panel">
-    <h2>Add New Product</h2>
-    <form action="/add_product" method="POST" class="product-form">
-        <input name="product" placeholder="Product Name" required>
-        <input name="category" placeholder="Category" required>
-        <input name="price" type="number" step="0.01" placeholder="Price" required>
-        <input name="cost" type="number" step="0.01" placeholder="Cost" required>
-        <input name="stock" type="number" placeholder="Stock" required>
-        <input name="branch" placeholder="Branch" value="Main">
-        <button>Add Product</button>
-    </form>
-</div>
+<section class="page">
+    <div class="page-head">
+        <div>
+            <p class="eyebrow">Inventory Control</p>
+            <h1>Inventory Management</h1>
+        </div>
 
-<div class="panel">
-    <form method="GET" class="search-form">
-        <input name="search" placeholder="Search product/category" value="{{ search }}">
-        <button>Search</button>
-    </form>
+        <form class="search-box" method="GET">
+            <input type="text" name="search" placeholder="Search product/category" value="{{ search }}">
+            <button>Search</button>
+        </form>
+    </div>
 
-    <table>
-        <tr>
-            <th>Product</th><th>Category</th><th>Price</th><th>Cost</th><th>Stock</th><th>Sold</th><th>Status</th>
-        </tr>
-        {% for p in products %}
-        <tr>
-            <td>{{ p['product'] }}</td>
-            <td>{{ p['category'] }}</td>
-            <td>₹{{ p['price'] }}</td>
-            <td>₹{{ p['cost'] }}</td>
-            <td>{{ p['stock'] }}</td>
-            <td>{{ p['sold'] }}</td>
-            <td>
-                {% if p['stock'] == 0 %}
-                    <span class="danger-text">Out of Stock</span>
-                {% elif p['stock'] <= 15 %}
-                    <span class="warning-text">Low Stock</span>
+    <div class="panel">
+        <h2>➕ Add New Product</h2>
+        <form class="form-grid" method="POST" action="/add_product">
+            <input name="product" placeholder="Product name" required>
+            <input name="category" placeholder="Category" required>
+            <input name="price" type="number" step="0.01" placeholder="Selling price" required>
+            <input name="cost" type="number" step="0.01" placeholder="Cost price" required>
+            <input name="stock" type="number" placeholder="Stock" required>
+            <input name="sold" type="number" placeholder="Sold" value="0">
+            <input name="branch" placeholder="Branch" value="Main">
+            <button type="submit">Add Product</button>
+        </form>
+    </div>
+
+    <div class="panel">
+        <h2>📦 Product List</h2>
+        <div class="table-wrap">
+            <table>
+                <tr>
+                    <th>Product</th><th>Category</th><th>Price</th><th>Cost</th>
+                    <th>Stock</th><th>Sold</th><th>Branch</th><th>Status</th><th>Action</th>
+                </tr>
+
+                {% for p in products %}
+                <tr>
+                    <form method="POST" action="/update_product/{{ p.id }}">
+                        <td><input name="product" value="{{ p.product }}"></td>
+                        <td><input name="category" value="{{ p.category }}"></td>
+                        <td><input name="price" type="number" step="0.01" value="{{ p.price }}"></td>
+                        <td><input name="cost" type="number" step="0.01" value="{{ p.cost }}"></td>
+                        <td><input name="stock" type="number" value="{{ p.stock }}"></td>
+                        <td><input name="sold" type="number" value="{{ p.sold }}"></td>
+                        <td><input name="branch" value="{{ p.branch }}"></td>
+                        <td>
+                            {% if p.stock <= 10 %}
+                            <span class="pill danger">Low</span>
+                            {% else %}
+                            <span class="pill success">Good</span>
+                            {% endif %}
+                        </td>
+                        <td class="actions">
+                            <button class="small-btn">Save</button>
+                            <a class="small-btn delete" href="/delete_product/{{ p.id }}">Delete</a>
+                        </td>
+                    </form>
+                </tr>
                 {% else %}
-                    <span class="success-text">Available</span>
-                {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
+                <tr><td colspan="9">No products available.</td></tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</section>
+
 {% endblock %}
